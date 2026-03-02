@@ -2,26 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── CSS Custom Properties (Design Tokens) ── */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #333333;
+
+  /* Brand Colors */
+  --neon-green: #d4ff00;
+  --deep-navy: #1a1a2e;
+  --charcoal: #333333;
+
+  /* Functional Colors */
+  --live-indicator: #ff6b3d;
+  --alert-notification: #ff7b5c;
+  --favorite-heart: #ff8c42;
+  --neutral-gray: #e5e5e5;
+
+  /* Layout */
+  --header-height: 72px;
+  --container-max: 1440px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Base Styles ── */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ── Utilities ── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* ── Category Gradient Utilities ── */
+@layer components {
+  .gradient-tech {
+    background: linear-gradient(135deg, #2563eb, #06b6d4, #10b981);
+  }
+  .gradient-beauty {
+    background: linear-gradient(135deg, #ff6b9d, #c71585);
+  }
+  .gradient-wellness {
+    background: linear-gradient(135deg, #20d5c5, #34d399);
+  }
+  .gradient-sports {
+    background: linear-gradient(135deg, #ff6b3d, #ff4b2b);
+  }
+  .gradient-fashion {
+    background: linear-gradient(135deg, #8b5cf6, #3b82f6);
   }
 }

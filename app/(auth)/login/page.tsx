@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import LoginForm from '@/components/forms/LoginForm';
@@ -13,6 +13,20 @@ import type { LoginInput } from '@/lib/validators';
    ───────────────────────────────────────────────── */
 
 export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full max-w-md rounded-card bg-white p-8 shadow-card-hover md:p-10 text-center">
+          Loading…
+        </div>
+      }
+    >
+      <LoginPageInner />
+    </Suspense>
+  );
+}
+
+function LoginPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';

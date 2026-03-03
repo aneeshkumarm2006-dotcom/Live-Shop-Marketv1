@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Heart, UserX } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import BrandCard from '@/components/cards/BrandCard';
 import Button from '@/components/ui/Button';
 import type { BuyerDashboardFavorite } from '@/hooks/useBuyerDashboard';

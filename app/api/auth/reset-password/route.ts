@@ -35,8 +35,8 @@ export async function POST(req: NextRequest) {
 
     // Update password (hashed automatically by pre-save hook)
     user.password = password;
-    user.passwordResetToken = undefined as unknown as string;
-    user.passwordResetExpires = undefined as unknown as Date;
+    user.set('passwordResetToken', undefined);
+    user.set('passwordResetExpires', undefined);
     await user.save();
 
     return NextResponse.json({

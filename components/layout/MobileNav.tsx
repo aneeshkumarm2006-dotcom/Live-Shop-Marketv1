@@ -105,7 +105,7 @@ export default function MobileNav({
               {status === 'unauthenticated' && (
                 <div className="flex flex-col gap-2u">
                   <Link
-                    href="/register"
+                    href="/signup"
                     onClick={onClose}
                     className="flex items-center justify-center rounded-button bg-neon-green px-4u py-3 text-button-text font-semibold text-deep-navy transition-all duration-button hover:brightness-90"
                   >

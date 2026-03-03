@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { Bell } from 'lucide-react';
-import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import type { Platform, SessionStatus } from '@/types/liveSession';
 

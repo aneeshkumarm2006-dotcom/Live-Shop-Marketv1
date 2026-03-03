@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useBuyerDashboard, buyerDashboardKeys } from '@/hooks/useBuyerDashboard';
-import { useToggleFavorite, favoriteKeys } from '@/hooks/useFavorites';
+import { favoriteKeys } from '@/hooks/useFavorites';
 import apiClient from '@/lib/api-client';
 
 import BuyerOverview from '@/components/dashboard/BuyerOverview';
@@ -83,6 +83,13 @@ export default function BuyerDashboardPage() {
 
   if (authStatus === 'unauthenticated' || !authSession) {
     router.push('/');
+    return null;
+  }
+
+  // Redirect creators to their own dashboard
+  const userRole = (authSession.user as { role?: string })?.role;
+  if (userRole === 'creator') {
+    router.push('/dashboard/creator');
     return null;
   }
 

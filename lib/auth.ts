@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import dbConnect from '@/lib/db/mongoose';
 import User from '@/models/User';
-import Creator from '@/models/Creator';
 import { loginSchema } from '@/lib/validators/auth';
 
 // ─── Extend NextAuth types ─────────────────────────────────────────────────

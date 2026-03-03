@@ -4,7 +4,7 @@ import dbConnect from '@/lib/db/mongoose';
 import Creator from '@/models/Creator';
 import LiveSession from '@/models/LiveSession';
 import Favorite from '@/models/Favorite';
-import { requireAuth, requireCreator, AuthSession } from '@/lib/auth-helpers';
+import { requireCreator, AuthSession } from '@/lib/auth-helpers';
 import { updateCreatorProfileSchema } from '@/lib/validators/creator';
 
 // ─── GET /api/creators/[id] — Get creator profile ──────────────────────────

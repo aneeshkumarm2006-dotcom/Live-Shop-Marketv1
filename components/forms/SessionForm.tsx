@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarClock, Video, Save, Plus } from 'lucide-react';
+import { Save, Plus } from 'lucide-react';
 import { z } from 'zod';
 import { createSessionSchema, type CreateSessionInput } from '@/lib/validators';
 import { Input, Textarea } from '@/components/ui/Input';

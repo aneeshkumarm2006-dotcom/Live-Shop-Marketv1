@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useRef, useEffect } from 'react';
-import { Menu, X, ChevronDown, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, ChevronDown, User, LogOut, LayoutDashboard } from 'lucide-react';
 import MobileNav from './MobileNav';
 
 export default function Header() {
@@ -70,7 +70,7 @@ export default function Header() {
                   Log In
                 </Link>
                 <Link
-                  href="/register"
+                  href="/signup"
                   className="inline-flex items-center rounded-button bg-neon-green px-4u py-2.5 text-button-text text-deep-navy transition-all duration-button hover:brightness-90"
                 >
                   Sign Up

@@ -401,7 +401,7 @@
 
 ### 7.3 Card Components
 
-- [ ] **Build Category Card component**
+- [x] **Build Category Card component**
   - Files: `components/cards/CategoryCard.tsx`
   - 3:2 aspect ratio, 16px border radius
   - Category-specific gradient backgrounds (from DESIGN.md palette)
@@ -410,7 +410,7 @@
   - Placeholder state: light gray `#E5E5E5`
   - Dependencies: Category type, Framer Motion
 
-- [ ] **Build Live Stream Card component**
+- [x] **Build Live Stream Card component**
   - Files: `components/cards/LiveStreamCard.tsx`
   - Vertical card: thumbnail (16:9), title, metadata
   - LIVE badge (orange pill, top-left) with pulse animation
@@ -419,7 +419,7 @@
   - Click navigates to session detail or external link
   - Dependencies: Badge component, platform icons
 
-- [ ] **Build Brand/Creator Card component**
+- [x] **Build Brand/Creator Card component**
   - Files: `components/cards/BrandCard.tsx`
   - Square format, 12px border radius
   - Gray placeholder thumbnail
@@ -427,7 +427,7 @@
   - Brand name centered below
   - Dependencies: Avatar component, Favorite hook
 
-- [ ] **Build Upcoming Session Row component**
+- [x] **Build Upcoming Session Row component**
   - Files: `components/cards/UpcomingSessionRow.tsx`
   - Table-style row: Date, Time, Stream Title, Platforms, "Remind Me" button
   - Clean white with light dividers
@@ -439,29 +439,29 @@
 
 ### 8.1 Homepage
 
-- [ ] **Build homepage hero section**
-  - Files: `app/(public)/page.tsx`, `components/home/HeroSection.tsx`
+- [x] **Build homepage hero section**
+  - Files: `app/page.tsx`, `components/home/HeroSection.tsx`
   - Vibrant blue gradient background with floating video frame elements
   - Large "LiveShopMarket" title in white
   - Tagline text
   - Centered prominent search bar
   - Dependencies: SearchBar component, design tokens
 
-- [ ] **Build homepage category sections (horizontally scrollable)**
+- [x] **Build homepage category sections (horizontally scrollable)**
   - Files: `components/home/CategoryRow.tsx`
   - Labeled rows: "Fashion", "Tech & Gadgets", "Health & Wellness"
   - 4–5 brand cards per visible row, horizontal scroll
   - Section header with category name + arrow icon link to full category page
   - Dependencies: BrandCard component, useCategories hook, useSessions hook
 
-- [ ] **Build homepage CTA banner**
+- [x] **Build homepage CTA banner**
   - Files: `components/home/CTABanner.tsx`
   - Deep blue background with lifestyle photography
   - "Never Miss a Live Moment" headline
   - "Sign Up for Free" yellow-green button
   - Dependencies: Button component
 
-- [ ] **Build live stream notification banner**
+- [x] **Build live stream notification banner**
   - Files: `components/home/LiveNotificationBanner.tsx`
   - Sticky bottom banner: yellow-green gradient with coral accent
   - Megaphone icon, bold message, multiple "Watch on" buttons
@@ -502,7 +502,7 @@
 
 ### 8.4 Brand/Creator Profile Page
 
-- [ ] **Build creator profile header section**
+- [x] **Build creator profile header section**
   - Files: `app/(public)/creators/[id]/page.tsx`, `components/creator/CreatorHeader.tsx`
   - Light gray background with breadcrumb
   - Gray banner placeholder (16:4 ratio)
@@ -513,42 +513,42 @@
   - Favorite button: heart icon + "Favorite this brand and get notified when they go live!"
   - Dependencies: Avatar, Badge, Button components, useCreators hook, useFavorites hook
 
-- [ ] **Build creator upcoming streams table**
+- [x] **Build creator upcoming streams table**
   - Files: `components/creator/UpcomingStreams.tsx`
   - Table columns: Date, Time, Stream Title, Platforms, Actions
   - "Remind Me" yellow-green button per row
   - Empty state when no upcoming streams
   - Dependencies: UpcomingSessionRow component, useSessions hook
 
-- [ ] **Build creator previous streams grid**
+- [x] **Build creator previous streams grid**
   - Files: `components/creator/PreviousStreams.tsx`
   - Horizontal scrollable thumbnail grid of past streams
   - Dependencies: LiveStreamCard component, useSessions hook
 
 ### 8.5 Authentication Pages
 
-- [ ] **Build sign-up modal (split layout)**
-  - Files: `components/auth/SignUpModal.tsx`
+- [x] **Build sign-up modal (split layout)**
+  - Files: `app/(auth)/signup/page.tsx`
   - Left panel: white form — Email, Password, Name, Role selector (Buyer/Creator)
-  - Right panel: yellow-green gradient + lifestyle photo + megaphone icon + text callout
+  - Right panel: yellow-green gradient + megaphone icon + text callout
   - "Create My Account" full-width yellow-green button
   - Mobile: single-column with image header
   - Dependencies: Modal component, react-hook-form, Zod, registration API
 
-- [ ] **Build login modal**
-  - Files: `components/auth/LoginModal.tsx`
+- [x] **Build login modal**
+  - Files: `app/(auth)/login/page.tsx`
   - Email + password fields
   - "Forgot password?" link
   - Google OAuth button
   - Dependencies: Modal component, NextAuth signIn
 
-- [ ] **Build forgot password page**
+- [x] **Build forgot password page**
   - Files: `app/(auth)/forgot-password/page.tsx`
   - Email input, submit button
   - Success message state
   - Dependencies: Password reset API
 
-- [ ] **Build reset password page**
+- [x] **Build reset password page**
   - Files: `app/(auth)/reset-password/page.tsx`
   - Token from URL, new password + confirm fields
   - Dependencies: Password reset API
@@ -581,7 +581,7 @@
 
 ### 8.7 Buyer Dashboard
 
-- [ ] **Build buyer dashboard page**
+- [x] **Build buyer dashboard page**
   - Files: `app/(dashboard)/dashboard/buyer/page.tsx`
   - Section: "My Favorite Creators" list with avatars, names, live status indicator
   - Section: "Upcoming From Favorites" — sessions from favorited creators

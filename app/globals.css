@@ -34,6 +34,15 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Hide native scrollbar for horizontal scroll containers */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ── Category Gradient Utilities ── */

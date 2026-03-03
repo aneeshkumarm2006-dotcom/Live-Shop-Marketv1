@@ -1,101 +1,149 @@
-import Image from "next/image";
+import dbConnect from '@/lib/db/mongoose';
+import Category from '@/models/Category';
+import LiveSession from '@/models/LiveSession';
+import Creator from '@/models/Creator';
 
-export default function Home() {
+import HeroSection from '@/components/home/HeroSection';
+import FeaturedLiveSessions from '@/components/home/FeaturedLiveSessions';
+import CategoryRow from '@/components/home/CategoryRow';
+import CTABanner from '@/components/home/CTABanner';
+import HomeLiveNotification from './HomeLiveNotification';
+
+import type { FeaturedSession } from '@/components/home/FeaturedLiveSessions';
+import type { CategoryRowCreator, CategoryRowSession } from '@/components/home/CategoryRow';
+
+/* ─────────────────────────────────────────────────────────────────────
+   Homepage — DESIGN.md §7.1  /  TODO §8.1
+   Server Component with ISR: revalidates every 30 s so live sessions
+   stay fresh while keeping build-time performance.
+   ───────────────────────────────────────────────────────────────────── */
+
+export const revalidate = 30; // ISR — regenerate every 30 seconds
+
+// ─── Data helpers (server only) ─────────────────────────────────────
+
+interface CategoryWithSessions {
+  _id: string;
+  name: string;
+  slug: string;
+  creators: CategoryRowCreator[];
+  sessions: CategoryRowSession[];
+}
+
+async function getHomepageData() {
+  await dbConnect();
+
+  // 1. Featured live / upcoming sessions (max 6)
+  const featuredRaw = await LiveSession.find({
+    status: { $in: ['live', 'scheduled'] },
+  })
+    .sort({ status: 1, scheduledAt: 1, createdAt: -1 })
+    .limit(6)
+    .populate('creatorId', 'displayName profileImage')
+    .populate('categoryId', 'name slug')
+    .lean();
+
+  const featuredSessions: FeaturedSession[] = featuredRaw.map((s: any) => ({
+    _id: String(s._id),
+    title: s.title,
+    status: s.status,
+    platform: s.platform,
+    externalUrl: s.externalUrl ?? undefined,
+    thumbnailUrl: s.thumbnailUrl ?? undefined,
+    scheduledAt: s.scheduledAt ? new Date(s.scheduledAt).toISOString() : undefined,
+    creator: s.creatorId ? { displayName: (s.creatorId as any).displayName } : undefined,
+  }));
+
+  // 2. Categories (sorted by sortOrder)
+  const categories = await Category.find().sort({ sortOrder: 1 }).lean();
+
+  // 3. For each category, fetch a handful of creators + recent sessions
+  const categoryRows: CategoryWithSessions[] = await Promise.all(
+    categories.map(async (cat: any) => {
+      const catId = cat._id;
+
+      const [creators, sessions] = await Promise.all([
+        Creator.find({ categories: catId }).sort({ followerCount: -1 }).limit(8).lean(),
+        LiveSession.find({
+          categoryId: catId,
+          status: { $in: ['live', 'scheduled'] },
+        })
+          .sort({ status: 1, scheduledAt: 1 })
+          .limit(4)
+          .populate('creatorId', 'displayName')
+          .lean(),
+      ]);
+
+      return {
+        _id: String(catId),
+        name: cat.name,
+        slug: cat.slug,
+        creators: creators.map((c: any) => ({
+          _id: String(c._id),
+          displayName: c.displayName,
+          profileImage: c.profileImage ?? undefined,
+        })),
+        sessions: sessions.map((s: any) => ({
+          _id: String(s._id),
+          title: s.title,
+          status: s.status,
+          platform: s.platform,
+          externalUrl: s.externalUrl ?? undefined,
+          thumbnailUrl: s.thumbnailUrl ?? undefined,
+          scheduledAt: s.scheduledAt ? new Date(s.scheduledAt).toISOString() : undefined,
+          creator: s.creatorId ? { displayName: (s.creatorId as any).displayName } : undefined,
+        })),
+      };
+    })
+  );
+
+  // 4. Latest live session for the bottom notification banner
+  const latestLive = (await LiveSession.findOne({ status: 'live' })
+    .sort({ startedAt: -1 })
+    .populate('creatorId', 'displayName')
+    .lean()) as any;
+
+  const liveNotification = latestLive
+    ? {
+        brandName: latestLive.creatorId?.displayName ?? 'A creator',
+        platform: latestLive.platform,
+        externalUrl: latestLive.externalUrl,
+        sessionId: String(latestLive._id),
+      }
+    : null;
+
+  return { featuredSessions, categoryRows, liveNotification };
+}
+
+// ─── Page component ─────────────────────────────────────────────────
+
+export default async function Home() {
+  const { featuredSessions, categoryRows, liveNotification } = await getHomepageData();
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="flex flex-col">
+      {/* ── Hero ── */}
+      <HeroSection />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {/* ── Featured live & upcoming sessions ── */}
+      <FeaturedLiveSessions sessions={featuredSessions} />
+
+      {/* ── Category rows (horizontal scrollable) ── */}
+      {categoryRows.map((cat) => (
+        <CategoryRow
+          key={cat._id}
+          title={cat.name}
+          href={`/categories/${cat.slug}`}
+          creators={cat.creators}
+          sessions={cat.sessions}
+        />
+      ))}
+
+      {/* ── CTA banner ── */}
+      <CTABanner />
+
+      {/* ── Live notification banner (bottom, client-side) ── */}
+      {liveNotification && <HomeLiveNotification notification={liveNotification} />}
     </div>
   );
 }

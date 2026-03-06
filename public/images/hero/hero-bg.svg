@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A2E"/>
+      <stop offset="40%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4FF00" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#D4FF00" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#heroBg)"/>
+
+  <!-- Floating Video Frame 1 -->
+  <g transform="translate(520, 40) rotate(8)">
+    <rect x="0" y="0" width="140" height="90" rx="12" fill="#FFFFFF" opacity="0.1"/>
+    <rect x="4" y="4" width="132" height="82" rx="10" fill="#1E293B" opacity="0.5"/>
+    <!-- Play button -->
+    <circle cx="70" cy="45" r="16" fill="#D4FF00" opacity="0.8"/>
+    <polygon points="64,37 64,53 78,45" fill="#1A1A2E"/>
+    <!-- Live badge -->
+    <rect x="10" y="10" width="36" height="16" rx="8" fill="#FF6B3D" opacity="0.9"/>
+    <text x="28" y="21" text-anchor="middle" font-family="Arial" font-size="8" fill="white" font-weight="bold">LIVE</text>
+  </g>
+
+  <!-- Floating Video Frame 2 -->
+  <g transform="translate(620, 200) rotate(-5)">
+    <rect x="0" y="0" width="120" height="80" rx="10" fill="#FFFFFF" opacity="0.1"/>
+    <rect x="3" y="3" width="114" height="74" rx="8" fill="#1E293B" opacity="0.5"/>
+    <circle cx="60" cy="40" r="14" fill="#D4FF00" opacity="0.8"/>
+    <polygon points="55,33 55,47 67,40" fill="#1A1A2E"/>
+  </g>
+
+  <!-- Floating Video Frame 3 -->
+  <g transform="translate(80, 250) rotate(4)">
+    <rect x="0" y="0" width="100" height="70" rx="8" fill="#FFFFFF" opacity="0.08"/>
+    <rect x="3" y="3" width="94" height="64" rx="6" fill="#1E293B" opacity="0.4"/>
+    <circle cx="50" cy="35" r="12" fill="#D4FF00" opacity="0.7"/>
+    <polygon points="46,29 46,41 56,35" fill="#1A1A2E"/>
+  </g>
+
+  <!-- Abstract Circles -->
+  <circle cx="680" cy="350" r="80" fill="#D4FF00" opacity="0.06"/>
+  <circle cx="100" cy="80" r="60" fill="#D4FF00" opacity="0.05"/>
+  <circle cx="400" cy="380" r="50" fill="#06B6D4" opacity="0.08"/>
+  <circle cx="750" cy="100" r="40" fill="#8B5CF6" opacity="0.1"/>
+
+  <!-- Decorative dots -->
+  <circle cx="300" cy="60" r="4" fill="#D4FF00" opacity="0.4"/>
+  <circle cx="320" cy="80" r="3" fill="#D4FF00" opacity="0.3"/>
+  <circle cx="280" cy="90" r="2.5" fill="#D4FF00" opacity="0.25"/>
+  <circle cx="450" cy="320" r="3.5" fill="#06B6D4" opacity="0.3"/>
+  <circle cx="470" cy="340" r="2" fill="#06B6D4" opacity="0.2"/>
+
+  <!-- Abstract lines -->
+  <line x1="200" y1="350" x2="300" y2="300" stroke="#D4FF00" stroke-width="1" opacity="0.1"/>
+  <line x1="500" y1="50" x2="550" y2="100" stroke="#FFFFFF" stroke-width="1" opacity="0.08"/>
+
+  <!-- Neon accent glow -->
+  <circle cx="400" cy="200" r="200" fill="url(#accentGlow)"/>
+</svg>

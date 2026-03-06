@@ -8,3 +8,5 @@ export type { FeaturedSession } from './FeaturedLiveSessions';
 export { default as CTABanner } from './CTABanner';
 export { default as LiveNotificationBanner } from './LiveNotificationBanner';
 export type { LiveNotificationBannerProps } from './LiveNotificationBanner';
+export { default as LiveFeaturedSessions } from './LiveFeaturedSessions';
+export { default as LiveNotificationPoller } from './LiveNotificationPoller';

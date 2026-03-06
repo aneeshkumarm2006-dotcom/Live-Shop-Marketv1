@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import dbConnect from '@/lib/db/mongoose';
 import Creator from '@/models/Creator';
 import Favorite from '@/models/Favorite';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 // ─── GET /api/creators — List creators with filters ────────────────────────
 
@@ -20,6 +23,9 @@ import Favorite from '@/models/Favorite';
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     await dbConnect();
 
     const { searchParams } = new URL(request.url);

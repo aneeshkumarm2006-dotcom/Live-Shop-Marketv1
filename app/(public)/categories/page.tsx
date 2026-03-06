@@ -1,25 +1,66 @@
-'use client';
-
-import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-import { useCategories } from '@/hooks';
+import dbConnect from '@/lib/db/mongoose';
+import Category from '@/models/Category';
 import CategoryCard from '@/components/cards/CategoryCard';
-import Spinner from '@/components/ui/Spinner';
 
 /* ─────────────────────────────────────────────────────────────────────
    All Categories Page — DESIGN.md §7.2 / TODO §8.2
+   Server component with ISR (60s revalidate).
    Light gray header with breadcrumb, centered title, 3-column grid
    of full category cards with gradients + illustrations.
    ───────────────────────────────────────────────────────────────────── */
 
+export const revalidate = 60; // ISR — regenerate every 60 seconds
+
+export const metadata: Metadata = {
+  title: 'All Categories',
+  description:
+    'Browse live shopping streams across every category — Tech & Gadgets, Beauty, Wellness, Sports & Fitness, Fashion, and more.',
+  openGraph: {
+    title: 'All Categories | LiveShopMarket',
+    description:
+      'Browse live shopping streams across every category — Tech & Gadgets, Beauty, Wellness, Sports & Fitness, Fashion, and more.',
+    images: [
+      {
+        url: '/images/og-categories.png',
+        width: 1200,
+        height: 630,
+        alt: 'LiveShopMarket Categories',
+      },
+    ],
+  },
+};
+
 // Placeholder cards to fill gaps for future categories
 const PLACEHOLDER_COUNT = 2;
 
-export default function AllCategoriesPage() {
-  const { data, isLoading, isError } = useCategories();
+interface CategoryDoc {
+  _id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  sessionCount?: number;
+}
 
-  const categories = data?.data ?? [];
+async function getCategories(): Promise<CategoryDoc[]> {
+  await dbConnect();
+  const raw = await Category.find().sort({ sortOrder: 1 }).lean();
+  return raw.map((cat) => {
+    const c = cat as unknown as Record<string, unknown>;
+    return {
+      _id: String(c._id),
+      name: String(c.name),
+      slug: String(c.slug),
+      description: c.description as string | undefined,
+      sessionCount: typeof c.sessionCount === 'number' ? c.sessionCount : undefined,
+    };
+  });
+}
+
+export default async function AllCategoriesPage() {
+  const categories = await getCategories();
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,50 +89,28 @@ export default function AllCategoriesPage() {
 
       {/* ── Category Grid ── */}
       <section className="mx-auto max-w-container px-3u py-8u">
-        {isLoading && (
-          <div className="flex items-center justify-center py-16">
-            <Spinner size="lg" label="Loading categories…" />
-          </div>
-        )}
+        <div className="grid grid-cols-1 gap-4u sm:grid-cols-2 lg:grid-cols-3">
+          {/* Real category cards */}
+          {categories.map((cat) => (
+            <CategoryCard
+              key={cat._id}
+              name={cat.name}
+              slug={cat.slug}
+              description={cat.description}
+              sessionCount={cat.sessionCount}
+            />
+          ))}
 
-        {isError && (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <p className="text-body text-charcoal/70">
-              Unable to load categories. Please try again later.
-            </p>
-          </div>
-        )}
-
-        {!isLoading && !isError && (
-          <div className="grid grid-cols-1 gap-4u sm:grid-cols-2 lg:grid-cols-3">
-            {/* Real category cards */}
-            {categories.map((cat) => (
-              <CategoryCard
-                key={String(
-                  (cat as Record<string, unknown>)._id ?? (cat as Record<string, unknown>).slug
-                )}
-                name={String((cat as Record<string, unknown>).name ?? '')}
-                slug={String((cat as Record<string, unknown>).slug ?? '')}
-                description={(cat as Record<string, unknown>).description as string | undefined}
-                sessionCount={
-                  typeof (cat as Record<string, unknown>).sessionCount === 'number'
-                    ? ((cat as Record<string, unknown>).sessionCount as number)
-                    : undefined
-                }
-              />
-            ))}
-
-            {/* Gray placeholder cards for future categories (DESIGN.md §7.2) */}
-            {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-              <div
-                key={`placeholder-${i}`}
-                className="flex aspect-[3/2] items-center justify-center rounded-card bg-neutral-gray/60"
-              >
-                <span className="text-body text-charcoal/40">Coming Soon</span>
-              </div>
-            ))}
-          </div>
-        )}
+          {/* Gray placeholder cards for future categories (DESIGN.md §7.2) */}
+          {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
+            <div
+              key={`placeholder-${i}`}
+              className="flex aspect-[3/2] items-center justify-center rounded-card bg-neutral-gray/60"
+            >
+              <span className="text-body text-charcoal/40">Coming Soon</span>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

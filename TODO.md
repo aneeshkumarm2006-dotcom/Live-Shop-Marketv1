@@ -297,7 +297,7 @@
 
 ### 5.6 Image Upload API
 
-- [ ] **POST /api/upload — Upload image to Cloudinary**
+- [x] **POST /api/upload — Upload image to Cloudinary**
   - Files: `app/api/upload/route.ts`
   - Auth: Authenticated user
   - Accept image file, upload to Cloudinary, return URL
@@ -601,16 +601,16 @@
 
 ## 9. 3D Illustrations & Static Assets
 
-- [ ] **Create/source 3D isometric illustrations for categories**
+- [x] **Create/source 3D isometric illustrations for categories**
   - Files: `public/images/categories/tech.svg`, `beauty.svg`, `wellness.svg`, `sports.svg`, `fashion.svg`
   - Style: playful rounded 3D objects with soft shadows per DESIGN.md
   - Dependencies: None (can be done in parallel)
 
-- [ ] **Add platform logo icons**
+- [x] **Add platform logo icons**
   - Files: `public/icons/youtube.svg`, `instagram.svg`, `tiktok.svg`, `facebook.svg`, `qvc.svg`
   - Dependencies: None
 
-- [ ] **Create hero section decorative elements**
+- [x] **Create hero section decorative elements**
   - Files: `public/images/hero/` — floating video frames, abstract shapes
   - Dependencies: None
 
@@ -673,18 +673,18 @@
 
 ## 12. Integrations
 
-- [ ] **Set up Cloudinary SDK for image uploads**
+- [x] **Set up Cloudinary SDK for image uploads**
   - Files: `lib/cloudinary.ts`
   - Configure upload presets, transformation configs
   - Dependencies: Cloudinary account, env vars
 
-- [ ] **Set up SendGrid / Resend for transactional emails**
+- [x] **Set up SendGrid / Resend for transactional emails**
   - Files: `lib/email.ts`
   - Templates: welcome email, password reset email
   - 🔮 Phase 2: live notification email, session reminder email
   - Dependencies: SendGrid/Resend account, env vars
 
-- [ ] **Create URL validation utility for external platforms**
+- [x] **Create URL validation utility for external platforms**
   - Files: `lib/validators/url.ts`
   - Validate and detect platform from URL (YouTube, Instagram, TikTok, Facebook)
   - Extract platform-specific metadata if possible
@@ -701,9 +701,12 @@
   - Note: Can defer to Phase 2; use polling as Phase 1 fallback
   - Dependencies: Socket.io installed
 
-- [ ] **Implement polling fallback for live session status**
-  - Files: Update `hooks/useSessions.ts`
+- [x] **Implement polling fallback for live session status**
+  - Files: `hooks/useLiveSessions.ts`, `components/home/LiveFeaturedSessions.tsx`, `components/home/LiveNotificationPoller.tsx`, `app/page.tsx`
   - React Query `refetchInterval` (30s) for live session lists
+  - `useLiveSessions` hook polls live + scheduled sessions every 30 s
+  - `useLatestLiveSession` hook polls for notification banner data
+  - Client wrapper components hydrate server-rendered data then poll
   - Dependencies: React Query hooks
 
 ---

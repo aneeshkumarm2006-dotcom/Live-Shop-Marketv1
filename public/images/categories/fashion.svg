@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <defs>
+    <linearGradient id="fashionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="fashionShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Shopping Bag (3D Isometric) -->
+  <g transform="translate(40, 40)">
+    <!-- Bag front -->
+    <path d="M10 60 L10 170 Q10 180 20 180 L90 180 Q100 180 100 170 L100 60 Z" fill="#7C3AED"/>
+    <!-- Bag side -->
+    <path d="M100 60 L120 48 L120 158 Q120 168 110 168 L100 180 Q100 180 100 170 Z" fill="#6D28D9"/>
+    <!-- Bag top face -->
+    <path d="M10 60 L30 48 L120 48 L100 60 Z" fill="#A78BFA"/>
+    <!-- Handles -->
+    <path d="M35 60 L35 45 Q35 30 50 30 Q65 30 65 45 L65 60" stroke="#C4B5FD" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Tissue paper -->
+    <path d="M15 60 L30 40 L50 55 L70 38 L90 52 L100 60 Z" fill="#EDE9FE" opacity="0.6"/>
+    <!-- Logo placeholder -->
+    <circle cx="55" cy="120" r="18" fill="#8B5CF6" opacity="0.6"/>
+    <text x="55" y="126" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Arial">L</text>
+    <!-- Shine -->
+    <path d="M14 65 L14 165 Q14 175 22 175 L18 175 Q12 175 12 165 L12 65 Z" fill="white" opacity="0.12"/>
+  </g>
+
+  <!-- High Heel Shoe (3D Isometric) -->
+  <g transform="translate(190, 140)">
+    <!-- Sole -->
+    <path d="M10 60 L120 50 L130 55 L120 80 L20 80 Z" fill="#4C1D95"/>
+    <!-- Shoe body -->
+    <path d="M10 60 L30 10 L60 5 L80 20 L120 50 L10 60 Z" fill="#7C3AED"/>
+    <!-- Inner -->
+    <path d="M20 55 L35 18 L58 14 L75 25 L110 48 L20 55 Z" fill="#6D28D9"/>
+    <!-- Heel -->
+    <path d="M20 80 L10 60 L18 60 L22 80 Z" fill="#4C1D95"/>
+    <path d="M10 60 L5 58 L15 78 L20 80 Z" fill="#3B0764"/>
+    <!-- Strap -->
+    <path d="M50 20 Q60 10 70 20" stroke="#A78BFA" stroke-width="3" fill="none"/>
+    <!-- Shine -->
+    <path d="M15 55 L32 15 L40 12 L24 50 Z" fill="white" opacity="0.1"/>
+  </g>
+
+  <!-- Sunglasses (3D Isometric) -->
+  <g transform="translate(180, 30)">
+    <!-- Bridge -->
+    <path d="M70 40 Q85 32 100 40" stroke="#6D28D9" stroke-width="4" fill="none"/>
+    <!-- Left lens frame -->
+    <ellipse cx="52" cy="46" rx="30" ry="22" fill="#4C1D95"/>
+    <ellipse cx="52" cy="46" rx="27" ry="19" fill="#1E1B4B" opacity="0.8"/>
+    <!-- Right lens frame -->
+    <ellipse cx="118" cy="46" rx="30" ry="22" fill="#4C1D95"/>
+    <ellipse cx="118" cy="46" rx="27" ry="19" fill="#1E1B4B" opacity="0.8"/>
+    <!-- Left arm -->
+    <path d="M22" y1="42" x2="0" y2="38" d="M22 42 L0 38" stroke="#6D28D9" stroke-width="3" stroke-linecap="round"/>
+    <line x1="22" y1="42" x2="0" y2="38" stroke="#6D28D9" stroke-width="3" stroke-linecap="round"/>
+    <!-- Right arm -->
+    <line x1="148" y1="42" x2="170" y2="38" stroke="#6D28D9" stroke-width="3" stroke-linecap="round"/>
+    <!-- Lens reflection -->
+    <ellipse cx="42" cy="40" rx="10" ry="6" fill="white" opacity="0.12"/>
+    <ellipse cx="108" cy="40" rx="10" ry="6" fill="white" opacity="0.12"/>
+  </g>
+
+  <!-- Dress / T-shirt (3D Isometric) -->
+  <g transform="translate(280, 100)">
+    <!-- Body -->
+    <path d="M25 30 L25 110 Q25 115 30 115 L70 115 Q75 115 75 110 L75 30" fill="#8B5CF6"/>
+    <!-- Sleeves -->
+    <path d="M25 30 L5 50 L15 55 L25 45 Z" fill="#7C3AED"/>
+    <path d="M75 30 L95 50 L85 55 L75 45 Z" fill="#7C3AED"/>
+    <!-- Collar -->
+    <path d="M35 25 L50 35 L65 25 L60 20 Q50 28 40 20 Z" fill="#A78BFA"/>
+    <!-- Neckline -->
+    <path d="M35 25 Q50 15 65 25" fill="#6D28D9"/>
+    <!-- Hanger hook -->
+    <path d="M50 5 Q50 0 55 0 Q60 0 60 5" stroke="#D1D5DB" stroke-width="2" fill="none"/>
+    <line x1="50" y1="5" x2="50" y2="20" stroke="#D1D5DB" stroke-width="2"/>
+    <!-- Hanger bar -->
+    <line x1="25" y1="25" x2="75" y2="25" stroke="#D1D5DB" stroke-width="2"/>
+    <!-- Fold lines -->
+    <path d="M40 50 Q50 55 60 50" stroke="#7C3AED" stroke-width="1" fill="none" opacity="0.5"/>
+    <path d="M38 70 Q50 75 62 70" stroke="#7C3AED" stroke-width="1" fill="none" opacity="0.5"/>
+  </g>
+</svg>

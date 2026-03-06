@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <defs>
+    <linearGradient id="logoLightAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4FF00"/>
+      <stop offset="100%" stop-color="#A3E635"/>
+    </linearGradient>
+  </defs>
+  <!-- Play/Live icon -->
+  <rect x="0" y="4" width="32" height="32" rx="8" fill="#FFFFFF"/>
+  <polygon points="12,12 12,28 26,20" fill="#D4FF00"/>
+  <!-- "LiveShopMarket" text -->
+  <text x="40" y="28" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="-0.02em">
+    <tspan>Live</tspan><tspan fill="#D4FF00">Shop</tspan><tspan>Market</tspan>
+  </text>
+</svg>

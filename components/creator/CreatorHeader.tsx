@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Heart, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 
@@ -135,14 +136,21 @@ export default function CreatorHeader({
                   : `Add ${displayName} to favorites`
               }
             >
-              <Heart
-                className={[
-                  'h-5 w-5 transition-colors',
-                  isFavorited
-                    ? 'fill-favorite-heart text-favorite-heart'
-                    : 'fill-none text-current',
-                ].join(' ')}
-              />
+              <motion.span
+                key={isFavorited ? 'favorited' : 'not-favorited'}
+                initial={{ scale: 1 }}
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ duration: 0.3 }}
+              >
+                <Heart
+                  className={[
+                    'h-5 w-5 transition-colors',
+                    isFavorited
+                      ? 'fill-favorite-heart text-favorite-heart'
+                      : 'fill-none text-current',
+                  ].join(' ')}
+                />
+              </motion.span>
               {isFavorited ? 'Favorited' : 'Favorite'}
             </Button>
             {!isFavorited && (

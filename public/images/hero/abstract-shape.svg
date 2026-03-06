@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Abstract shape 1: Gradient blob -->
+  <defs>
+    <linearGradient id="blob1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4FF00" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="blob2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Blob shape -->
+  <path d="M100 20 Q160 30 170 80 Q180 130 140 160 Q100 190 60 160 Q20 130 30 80 Q40 30 100 20 Z" fill="url(#blob1)"/>
+  
+  <!-- Inner accent -->
+  <path d="M100 50 Q140 55 145 90 Q150 125 120 140 Q90 155 70 130 Q50 105 65 75 Q80 45 100 50Z" fill="url(#blob2)"/>
+  
+  <!-- Decorative dots -->
+  <circle cx="105" cy="80" r="6" fill="#D4FF00" opacity="0.6"/>
+  <circle cx="85" cy="110" r="4" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="125" cy="105" r="3" fill="#06B6D4" opacity="0.5"/>
+  <circle cx="95" cy="135" r="2.5" fill="#8B5CF6" opacity="0.4"/>
+</svg>

@@ -5,6 +5,8 @@ import LiveSession from '@/models/LiveSession';
 import Creator from '@/models/Creator';
 import { requireCreator } from '@/lib/auth-helpers';
 import { updateSessionSchema } from '@/lib/validators/session';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -26,6 +28,9 @@ function isValidObjectId(id: string): boolean {
  */
 export async function GET(_request: Request, context: RouteContext) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const { id } = await context.params;
 
     if (!isValidObjectId(id)) {
@@ -65,6 +70,9 @@ export async function GET(_request: Request, context: RouteContext) {
  */
 export async function PATCH(request: Request, context: RouteContext) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const { id } = await context.params;
 
     if (!isValidObjectId(id)) {
@@ -104,7 +112,7 @@ export async function PATCH(request: Request, context: RouteContext) {
     // Parse body
     let body: unknown;
     try {
-      body = await request.json();
+      body = sanitizeBody(await request.json());
     } catch {
       return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
     }
@@ -170,6 +178,9 @@ export async function PATCH(request: Request, context: RouteContext) {
  */
 export async function DELETE(_request: Request, context: RouteContext) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const { id } = await context.params;
 
     if (!isValidObjectId(id)) {

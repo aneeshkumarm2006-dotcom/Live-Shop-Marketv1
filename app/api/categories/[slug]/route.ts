@@ -3,6 +3,7 @@ import dbConnect from '@/lib/db/mongoose';
 import Category from '@/models/Category';
 import LiveSession from '@/models/LiveSession';
 import Creator from '@/models/Creator';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
 
 /**
  * GET /api/categories/[slug] — Get single category with stats
@@ -15,6 +16,9 @@ import Creator from '@/models/Creator';
  */
 export async function GET(_request: Request, { params }: { params: { slug: string } }) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     await dbConnect();
 
     const { slug } = params;

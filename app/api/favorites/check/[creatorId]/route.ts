@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dbConnect from '@/lib/db/mongoose';
 import Favorite from '@/models/Favorite';
 import { requireAuth } from '@/lib/auth-helpers';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
 
 // ─── GET /api/favorites/check/[creatorId] — Check if creator is favorited ──
 
@@ -16,6 +17,9 @@ import { requireAuth } from '@/lib/auth-helpers';
  */
 export async function GET(_request: Request, { params }: { params: { creatorId: string } }) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: any authenticated user
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;

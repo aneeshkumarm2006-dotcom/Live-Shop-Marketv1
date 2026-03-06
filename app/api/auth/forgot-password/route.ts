@@ -3,12 +3,18 @@ import crypto from 'crypto';
 import dbConnect from '@/lib/db/mongoose';
 import User from '@/models/User';
 import { forgotPasswordSchema } from '@/lib/validators/auth';
+import { sendPasswordResetEmail } from '@/lib/email';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
-// ─── POST /api/auth/forgot-password ────────────────────────────────────────
+// ─── POST /api/auth/forgot-password ──────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rateLimitResponse = rateLimit(req, RATE_LIMIT_PRESETS.auth);
+    if (rateLimitResponse) return rateLimitResponse;
+
+    const body = sanitizeBody(await req.json());
 
     // Validate input
     const parsed = forgotPasswordSchema.safeParse(body);
@@ -43,12 +49,11 @@ export async function POST(req: NextRequest) {
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
 
     // ── Send email ──────────────────────────────────────────────────────
-    // In production, integrate with Resend / SendGrid.
-    // For now, log the URL so development can continue without an email provider.
-    console.log(`[Password Reset] Link for ${email}: ${resetUrl}`);
-
-    // TODO: Replace with actual email sending when lib/email.ts is implemented
-    // await sendPasswordResetEmail({ to: email, resetUrl });
+    const emailResult = await sendPasswordResetEmail({ to: email, resetUrl });
+    if (!emailResult.success) {
+      console.error(`[Password Reset] Email failed for ${email}:`, emailResult.error);
+      // Still return success to prevent enumeration — the token is saved
+    }
 
     return NextResponse.json({
       message: 'If an account with that email exists, a password reset link has been sent.',

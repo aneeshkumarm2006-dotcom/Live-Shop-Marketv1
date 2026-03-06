@@ -6,6 +6,8 @@ import Creator from '@/models/Creator';
 import Category from '@/models/Category';
 import { requireCreator } from '@/lib/auth-helpers';
 import { createSessionSchema, sessionQuerySchema } from '@/lib/validators/session';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
 // ─── GET /api/sessions — List sessions with filters ────────────────────────
 
@@ -27,6 +29,9 @@ import { createSessionSchema, sessionQuerySchema } from '@/lib/validators/sessio
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     await dbConnect();
 
     const { searchParams } = new URL(request.url);
@@ -112,6 +117,9 @@ export async function GET(request: Request) {
  */
 export async function POST(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: creator required
     const authResult = await requireCreator();
     if (authResult instanceof NextResponse) return authResult;
@@ -122,7 +130,7 @@ export async function POST(request: Request) {
     // Parse body
     let body: unknown;
     try {
-      body = await request.json();
+      body = sanitizeBody(await request.json());
     } catch {
       return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
     }

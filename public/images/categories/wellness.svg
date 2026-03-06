@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <defs>
+    <linearGradient id="wellnessGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#20D5C5"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="wellnessShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Supplement Bottle (3D Isometric) -->
+  <g transform="translate(50, 30)">
+    <!-- Bottle body - front -->
+    <rect x="20" y="70" width="60" height="110" rx="8" fill="#14B8A6"/>
+    <!-- Body side -->
+    <path d="M80 70 L100 60 L100 170 Q100 180 90 180 L80 180 Z" fill="#0D9488"/>
+    <!-- Top face -->
+    <path d="M20 70 L40 60 L100 60 L80 70 Z" fill="#2DD4BF"/>
+    <!-- Cap -->
+    <rect x="30" y="50" width="40" height="20" rx="6" fill="#0F766E"/>
+    <path d="M30 50 L42 44 L82 44 L70 50 Z" fill="#14B8A6"/>
+    <!-- Label -->
+    <rect x="28" y="95" width="44" height="50" rx="4" fill="white" opacity="0.85"/>
+    <!-- Label text lines -->
+    <rect x="34" y="102" width="32" height="3" rx="1" fill="#14B8A6" opacity="0.6"/>
+    <rect x="36" y="110" width="28" height="2" rx="1" fill="#6B7280" opacity="0.4"/>
+    <rect x="36" y="116" width="28" height="2" rx="1" fill="#6B7280" opacity="0.4"/>
+    <!-- Leaf icon on label -->
+    <path d="M48 128 Q52 120 60 122 Q56 130 48 128 Z" fill="#34D399"/>
+    <!-- Shine -->
+    <rect x="24" y="75" width="6" height="80" rx="3" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Yoga Mat (3D Isometric) -->
+  <g transform="translate(170, 160)">
+    <!-- Rolled mat - outer -->
+    <ellipse cx="30" cy="50" rx="30" ry="40" fill="#0D9488"/>
+    <!-- Mat body (unrolled portion) -->
+    <path d="M30 10 L180 30 L180 70 L30 90" fill="#14B8A6"/>
+    <path d="M30 10 L180 30 L180 35 L30 15" fill="#2DD4BF"/>
+    <!-- Rolled end - front face -->
+    <ellipse cx="30" cy="50" rx="28" ry="38" fill="#20D5C5"/>
+    <!-- Spiral pattern -->
+    <path d="M30 20 Q50 20 50 50 Q50 80 30 80 Q12 80 12 50 Q12 25 30 25 Q45 25 45 50 Q45 72 30 72 Q16 72 16 50 Q16 30 30 30" fill="none" stroke="#0F766E" stroke-width="1.5" opacity="0.4"/>
+    <!-- Mat texture lines -->
+    <line x1="60" y1="22" x2="60" y2="78" stroke="#0D9488" stroke-width="0.5" opacity="0.3"/>
+    <line x1="100" y1="28" x2="100" y2="72" stroke="#0D9488" stroke-width="0.5" opacity="0.3"/>
+    <line x1="140" y1="32" x2="140" y2="68" stroke="#0D9488" stroke-width="0.5" opacity="0.3"/>
+  </g>
+
+  <!-- Water Bottle (3D Isometric) -->
+  <g transform="translate(250, 20)">
+    <!-- Bottle body -->
+    <path d="M20 60 L20 170 Q20 185 40 185 L50 185 Q70 185 70 170 L70 60 Z" fill="#34D399"/>
+    <!-- Side -->
+    <path d="M70 60 L85 52 L85 162 Q85 177 70 175 L70 185 Q70 185 70 170 Z" fill="#10B981"/>
+    <!-- Top -->
+    <path d="M20 60 L35 52 L85 52 L70 60 Z" fill="#6EE7B7"/>
+    <!-- Neck -->
+    <rect x="32" y="38" width="26" height="22" rx="3" fill="#10B981"/>
+    <!-- Cap -->
+    <rect x="34" y="25" width="22" height="16" rx="8" fill="#059669"/>
+    <path d="M34 25 L42 20 L64 20 L56 25 Z" fill="#34D399"/>
+    <!-- Water level -->
+    <rect x="24" y="100" width="42" height="65" rx="0" fill="#06B6D4" opacity="0.3"/>
+    <path d="M24 100 Q45 95 66 100" fill="#06B6D4" opacity="0.2"/>
+    <!-- Measurement lines -->
+    <line x1="62" y1="80" x2="66" y2="80" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="62" y1="100" x2="66" y2="100" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="62" y1="120" x2="66" y2="120" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="62" y1="140" x2="66" y2="140" stroke="white" stroke-width="1" opacity="0.3"/>
+    <!-- Shine -->
+    <rect x="24" y="65" width="5" height="90" rx="2" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Leaf / Wellness Symbol -->
+  <g transform="translate(170, 50)">
+    <path d="M40 70 Q20 40 40 10 Q60 0 70 20 Q80 40 60 70 Q50 80 40 70 Z" fill="#34D399" opacity="0.7"/>
+    <path d="M40 70 Q42 50 55 25" stroke="#059669" stroke-width="1.5" fill="none"/>
+    <path d="M45 50 Q55 45 60 50" stroke="#059669" stroke-width="1" fill="none"/>
+    <path d="M43 60 Q53 55 58 60" stroke="#059669" stroke-width="1" fill="none"/>
+  </g>
+</svg>

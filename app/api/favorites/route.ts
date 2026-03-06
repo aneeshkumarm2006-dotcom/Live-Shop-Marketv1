@@ -6,6 +6,8 @@ import Creator from '@/models/Creator';
 import LiveSession from '@/models/LiveSession';
 import { requireAuth } from '@/lib/auth-helpers';
 import { toggleFavoriteSchema, favoriteQuerySchema } from '@/lib/validators/favorite';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
 // ─── GET /api/favorites — List user's favorited creators ───────────────────
 
@@ -21,6 +23,9 @@ import { toggleFavoriteSchema, favoriteQuerySchema } from '@/lib/validators/favo
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: any authenticated user
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;
@@ -145,6 +150,9 @@ export async function GET(request: Request) {
  */
 export async function POST(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: any authenticated user
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;
@@ -155,7 +163,7 @@ export async function POST(request: Request) {
     // Parse body
     let body: unknown;
     try {
-      body = await request.json();
+      body = sanitizeBody(await request.json());
     } catch {
       return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
     }

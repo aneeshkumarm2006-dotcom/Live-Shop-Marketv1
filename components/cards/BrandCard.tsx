@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 /* ─────────────────────────────────────────────────────────────────────
    BrandCard — DESIGN.md §5.4 / TODO §7.3
@@ -40,15 +41,10 @@ export default function BrandCard({
   className = '',
 }: BrandCardProps) {
   return (
-    <div
-      className={[
-        'group relative flex flex-col items-center',
-        'transition-all duration-hover',
-        'hover:-translate-y-1 hover:scale-[1.02]',
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+    <motion.div
+      whileHover={{ y: -4, scale: 1.02 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className={['group relative flex flex-col items-center', className].filter(Boolean).join(' ')}
     >
       {/* ── Square thumbnail ── */}
       <Link
@@ -71,7 +67,7 @@ export default function BrandCard({
 
         {/* ── Favorite heart (top-right, DESIGN.md §5.4) ── */}
         {!hideFavorite && (
-          <button
+          <motion.button
             type="button"
             onClick={(e) => {
               e.preventDefault(); // prevent Link navigation
@@ -80,6 +76,8 @@ export default function BrandCard({
             }}
             disabled={isFavoriteLoading}
             aria-label={isFavorited ? `Remove ${name} from favorites` : `Add ${name} to favorites`}
+            whileTap={{ scale: 1.3 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
             className={[
               'absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm',
               'transition-all duration-hover',
@@ -98,7 +96,7 @@ export default function BrandCard({
                   : 'fill-none text-charcoal/60',
               ].join(' ')}
             />
-          </button>
+          </motion.button>
         )}
       </Link>
 
@@ -109,6 +107,6 @@ export default function BrandCard({
       >
         {name}
       </Link>
-    </div>
+    </motion.div>
   );
 }

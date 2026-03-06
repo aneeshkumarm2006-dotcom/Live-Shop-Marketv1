@@ -6,6 +6,8 @@ import LiveSession from '@/models/LiveSession';
 import Favorite from '@/models/Favorite';
 import { requireCreator, AuthSession } from '@/lib/auth-helpers';
 import { updateCreatorProfileSchema } from '@/lib/validators/creator';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
 // ─── GET /api/creators/[id] — Get creator profile ──────────────────────────
 
@@ -20,6 +22,9 @@ import { updateCreatorProfileSchema } from '@/lib/validators/creator';
  */
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     await dbConnect();
 
     const { id } = await params;
@@ -91,6 +96,9 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
  */
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Require creator role
     const authResult = await requireCreator();
     if (authResult instanceof NextResponse) return authResult;
@@ -123,7 +131,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     }
 
     // Parse & validate request body
-    const body = await request.json();
+    const body = sanitizeBody(await request.json());
     const parseResult = updateCreatorProfileSchema.safeParse(body);
 
     if (!parseResult.success) {

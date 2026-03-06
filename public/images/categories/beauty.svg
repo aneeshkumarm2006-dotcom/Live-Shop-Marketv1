@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <defs>
+    <linearGradient id="beautyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9D"/>
+      <stop offset="100%" stop-color="#C71585"/>
+    </linearGradient>
+    <linearGradient id="beautyShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Perfume Bottle (3D Isometric) -->
+  <g transform="translate(50, 40)">
+    <!-- Bottle body - front -->
+    <path d="M30 80 L30 160 Q30 180 50 180 L70 180 Q90 180 90 160 L90 80 Z" fill="#FF6B9D"/>
+    <!-- Bottle body - side -->
+    <path d="M90 80 L110 70 L110 150 Q110 170 90 170 L90 180 Q90 180 90 160 Z" fill="#DB2777"/>
+    <!-- Bottle top face -->
+    <path d="M30 80 L50 70 L110 70 L90 80 Z" fill="#FDA4AF"/>
+    <!-- Neck -->
+    <rect x="48" y="55" width="24" height="25" fill="#EC4899"/>
+    <path d="M48 55 L56 50 L80 50 L72 55 Z" fill="#FBCFE8"/>
+    <!-- Cap -->
+    <rect x="44" y="35" width="32" height="20" rx="4" fill="#BE185D"/>
+    <rect x="44" y="35" width="32" height="5" rx="2" fill="#E11D89"/>
+    <path d="M44 35 L54 30 L86 30 L76 35 Z" fill="#F472B6"/>
+    <!-- Label -->
+    <rect x="42" y="110" width="36" height="30" rx="3" fill="#ffffff" opacity="0.3"/>
+    <line x1="48" y1="120" x2="72" y2="120" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+    <line x1="50" y1="128" x2="70" y2="128" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+    <!-- Shine -->
+    <path d="M38 85 L38 155 Q38 170 48 170 L42 170 Q34 170 34 155 L34 85 Z" fill="white" opacity="0.2"/>
+  </g>
+
+  <!-- Lipstick (3D Isometric) -->
+  <g transform="translate(190, 60)">
+    <!-- Tube body -->
+    <rect x="20" y="80" width="40" height="100" rx="4" fill="#C71585"/>
+    <rect x="20" y="80" width="8" height="100" rx="0" fill="#A3116B" opacity="0.5"/>
+    <!-- Top portion -->
+    <rect x="20" y="60" width="40" height="25" rx="3" fill="#DB2777"/>
+    <!-- Lipstick tip -->
+    <path d="M22 60 L40 30 L58 60 Z" fill="#FF1744"/>
+    <path d="M22 60 L40 30 L40 60 Z" fill="#FF5252" opacity="0.6"/>
+    <!-- Cap (separated) -->
+    <g transform="translate(55, 100) rotate(15)">
+      <rect x="0" y="0" width="35" height="70" rx="4" fill="#9B1162"/>
+      <rect x="0" y="0" width="35" height="8" rx="4" fill="#BE185D"/>
+      <path d="M0 0 L8 -5 L43 -5 L35 0 Z" fill="#DB2777"/>
+    </g>
+    <!-- Shine on tube -->
+    <rect x="48" y="85" width="4" height="60" rx="2" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Hair Dryer (3D Isometric) -->
+  <g transform="translate(200, 170)">
+    <!-- Nozzle -->
+    <ellipse cx="30" cy="30" rx="25" ry="20" fill="#EC4899"/>
+    <ellipse cx="30" cy="28" rx="25" ry="20" fill="#F472B6"/>
+    <ellipse cx="30" cy="28" rx="18" ry="14" fill="#1F2937" opacity="0.3"/>
+    <!-- Inner ring -->
+    <ellipse cx="30" cy="28" rx="12" ry="9" fill="#374151" opacity="0.4"/>
+    <!-- Handle -->
+    <path d="M20 48 L15 100 Q14 110 22 110 L38 110 Q46 110 45 100 L40 48" fill="#DB2777"/>
+    <path d="M15 100 Q14 110 22 110 L38 110 Q46 110 45 100" fill="#BE185D"/>
+    <!-- Button -->
+    <circle cx="30" cy="75" r="5" fill="#FF6B9D"/>
+    <circle cx="30" cy="75" r="3" fill="#FBCFE8"/>
+    <!-- Shine -->
+    <path d="M10 20 Q10 10 30 10 L25 10 Q8 10 8 22 Z" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Compact Mirror (3D Isometric) -->
+  <g transform="translate(30, 200)">
+    <!-- Bottom half -->
+    <ellipse cx="50" cy="55" rx="40" ry="18" fill="#C71585"/>
+    <ellipse cx="50" cy="52" rx="40" ry="18" fill="#DB2777"/>
+    <!-- Top half (open) -->
+    <path d="M10 52 Q10 20 50 10 Q90 20 90 52" fill="#F9A8D4"/>
+    <path d="M15 50 Q15 25 50 16 Q85 25 85 50" fill="#FCE7F3"/>
+    <!-- Mirror reflection -->
+    <path d="M25 48 Q25 32 50 24 Q75 32 75 48" fill="white" opacity="0.5"/>
+    <!-- Sparkle -->
+    <circle cx="50" cy="35" r="2" fill="white"/>
+    <line x1="50" y1="30" x2="50" y2="40" stroke="white" stroke-width="1"/>
+    <line x1="45" y1="35" x2="55" y2="35" stroke="white" stroke-width="1"/>
+  </g>
+</svg>

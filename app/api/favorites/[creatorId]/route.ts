@@ -4,6 +4,7 @@ import dbConnect from '@/lib/db/mongoose';
 import Favorite from '@/models/Favorite';
 import Creator from '@/models/Creator';
 import { requireAuth } from '@/lib/auth-helpers';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
 
 // ─── DELETE /api/favorites/[creatorId] — Remove a creator from favorites ───
 
@@ -18,6 +19,9 @@ import { requireAuth } from '@/lib/auth-helpers';
  */
 export async function DELETE(_request: Request, { params }: { params: { creatorId: string } }) {
   try {
+    const rateLimitResponse = rateLimit(_request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: any authenticated user
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;

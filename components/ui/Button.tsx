@@ -1,7 +1,8 @@
 'use client';
 
-import React, { forwardRef, type ButtonHTMLAttributes } from 'react';
+import React, { forwardRef } from 'react';
 import { Loader2 } from 'lucide-react';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 
 /* ─── Variant × Size design tokens (DESIGN.md §5.5) ─── */
 
@@ -24,12 +25,13 @@ const sizeStyles = {
 export type ButtonVariant = keyof typeof variantStyles;
 export type ButtonSize = keyof typeof sizeStyles;
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'size' | 'children'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
   /** Render the button as a full‑width block element */
   fullWidth?: boolean;
+  children?: React.ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -49,9 +51,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const isDisabled = disabled || isLoading;
 
     return (
-      <button
+      <motion.button
         ref={ref}
         disabled={isDisabled}
+        whileTap={isDisabled ? undefined : { scale: 0.97 }}
+        transition={{ duration: 0.15 }}
         className={[
           'inline-flex items-center justify-center gap-2 font-semibold',
           'transition-all duration-button select-none',
@@ -68,7 +72,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
         {children}
-      </button>
+      </motion.button>
     );
   }
 );

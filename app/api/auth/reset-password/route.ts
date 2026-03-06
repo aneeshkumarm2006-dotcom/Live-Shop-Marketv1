@@ -3,12 +3,17 @@ import crypto from 'crypto';
 import dbConnect from '@/lib/db/mongoose';
 import User from '@/models/User';
 import { resetPasswordSchema } from '@/lib/validators/auth';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
-// ─── POST /api/auth/reset-password ─────────────────────────────────────────
+// ─── POST /api/auth/reset-password ───────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rateLimitResponse = rateLimit(req, RATE_LIMIT_PRESETS.auth);
+    if (rateLimitResponse) return rateLimitResponse;
+
+    const body = sanitizeBody(await req.json());
 
     // Validate input
     const parsed = resetPasswordSchema.safeParse(body);

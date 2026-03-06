@@ -7,6 +7,9 @@ import Favorite from '@/models/Favorite';
 import LiveSession from '@/models/LiveSession';
 import { requireAuth } from '@/lib/auth-helpers';
 import { dashboardQuerySchema } from '@/lib/validators/user';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 // ─── GET /api/users/me/dashboard — Personalized dashboard data ─────────────
 
@@ -35,6 +38,9 @@ import { dashboardQuerySchema } from '@/lib/validators/user';
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;
     const { user: sessionUser } = authResult;

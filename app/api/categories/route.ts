@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db/mongoose';
 import Category from '@/models/Category';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/categories — List all categories
@@ -13,6 +16,8 @@ import Category from '@/models/Category';
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
     await dbConnect();
 
     const { searchParams } = new URL(request.url);

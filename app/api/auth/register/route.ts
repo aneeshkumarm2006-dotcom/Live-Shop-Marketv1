@@ -3,12 +3,18 @@ import dbConnect from '@/lib/db/mongoose';
 import User from '@/models/User';
 import Creator from '@/models/Creator';
 import { registerSchema } from '@/lib/validators/auth';
+import { sendWelcomeEmail } from '@/lib/email';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
-// ─── POST /api/auth/register ───────────────────────────────────────────────
+// ─── POST /api/auth/register ─────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rateLimitResponse = rateLimit(req, RATE_LIMIT_PRESETS.auth);
+    if (rateLimitResponse) return rateLimitResponse;
+
+    const body = sanitizeBody(await req.json());
 
     // Validate input
     const parsed = registerSchema.safeParse(body);
@@ -45,6 +51,11 @@ export async function POST(req: NextRequest) {
         displayName: name,
       });
     }
+
+    // Send welcome email (non-blocking — don't fail registration if email fails)
+    sendWelcomeEmail({ to: user.email, name: user.name, role: user.role }).catch((err) =>
+      console.error('[Register] Welcome email failed:', err)
+    );
 
     return NextResponse.json(
       {

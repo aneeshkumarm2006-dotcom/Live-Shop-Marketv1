@@ -4,6 +4,9 @@ import LiveSession from '@/models/LiveSession';
 import Creator from '@/models/Creator';
 import Favorite from '@/models/Favorite';
 import { requireCreator } from '@/lib/auth-helpers';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+
+export const dynamic = 'force-dynamic';
 
 // ─── GET /api/dashboard/creator — Creator dashboard data ────────────────────
 
@@ -26,6 +29,9 @@ import { requireCreator } from '@/lib/auth-helpers';
  */
 export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     // Auth: creator required
     const authResult = await requireCreator();
     if (authResult instanceof NextResponse) return authResult;

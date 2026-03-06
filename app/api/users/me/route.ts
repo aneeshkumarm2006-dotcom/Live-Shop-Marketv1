@@ -4,6 +4,8 @@ import User from '@/models/User';
 import Creator from '@/models/Creator';
 import { requireAuth } from '@/lib/auth-helpers';
 import { updateUserProfileSchema } from '@/lib/validators/user';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
+import { sanitizeBody } from '@/lib/sanitize';
 
 // ─── GET /api/users/me — Get current user profile ─────────────────────────
 
@@ -15,8 +17,11 @@ import { updateUserProfileSchema } from '@/lib/validators/user';
  * Returns the current user's profile, including their Creator profile
  * if their role is "creator".
  */
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;
     const { user: sessionUser } = authResult;
@@ -68,6 +73,9 @@ export async function GET() {
  */
 export async function PATCH(request: Request) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.write);
+    if (rateLimitResponse) return rateLimitResponse;
+
     const authResult = await requireAuth();
     if (authResult instanceof NextResponse) return authResult;
     const { user: sessionUser } = authResult;
@@ -76,14 +84,15 @@ export async function PATCH(request: Request) {
 
     // Parse & validate body
     const body = await request.json().catch(() => null);
-    if (!body || Object.keys(body).length === 0) {
+    const sanitizedBody = body ? sanitizeBody(body) : null;
+    if (!sanitizedBody || Object.keys(sanitizedBody).length === 0) {
       return NextResponse.json(
         { success: false, error: 'Request body is required' },
         { status: 400 }
       );
     }
 
-    const parseResult = updateUserProfileSchema.safeParse(body);
+    const parseResult = updateUserProfileSchema.safeParse(sanitizedBody);
     if (!parseResult.success) {
       return NextResponse.json(
         {

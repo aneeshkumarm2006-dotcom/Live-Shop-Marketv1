@@ -4,10 +4,10 @@ import LiveSession from '@/models/LiveSession';
 import Creator from '@/models/Creator';
 
 import HeroSection from '@/components/home/HeroSection';
-import FeaturedLiveSessions from '@/components/home/FeaturedLiveSessions';
+import LiveFeaturedSessions from '@/components/home/LiveFeaturedSessions';
 import CategoryRow from '@/components/home/CategoryRow';
 import CTABanner from '@/components/home/CTABanner';
-import HomeLiveNotification from './HomeLiveNotification';
+import LiveNotificationPoller from '@/components/home/LiveNotificationPoller';
 
 import type { FeaturedSession } from '@/components/home/FeaturedLiveSessions';
 import type { CategoryRowCreator, CategoryRowSession } from '@/components/home/CategoryRow';
@@ -164,8 +164,8 @@ export default async function Home() {
       {/* ── Hero ── */}
       <HeroSection />
 
-      {/* ── Featured live & upcoming sessions ── */}
-      <FeaturedLiveSessions sessions={featuredSessions} />
+      {/* ── Featured live & upcoming sessions (polls every 30 s) ── */}
+      <LiveFeaturedSessions initialSessions={featuredSessions} />
 
       {/* ── Category rows (horizontal scrollable) ── */}
       {categoryRows.map((cat) => (
@@ -181,8 +181,8 @@ export default async function Home() {
       {/* ── CTA banner ── */}
       <CTABanner />
 
-      {/* ── Live notification banner (bottom, client-side) ── */}
-      {liveNotification && <HomeLiveNotification notification={liveNotification} />}
+      {/* ── Live notification banner (bottom, polls every 30 s) ── */}
+      <LiveNotificationPoller initialNotification={liveNotification} />
     </div>
   );
 }

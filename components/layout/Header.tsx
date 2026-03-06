@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useRef, useEffect } from 'react';
 import { Menu, ChevronDown, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { motion } from 'framer-motion';
 import MobileNav from './MobileNav';
 
 export default function Header() {
@@ -43,15 +44,30 @@ export default function Header() {
           {/* ── Desktop Navigation (center) ── */}
           <nav className="hidden items-center gap-8u md:flex" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <Link
+              <motion.div
                 key={link.href}
-                href={link.href}
-                className="group relative text-body font-medium text-charcoal transition-colors duration-hover hover:text-deep-navy"
+                className="relative"
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
               >
-                {link.label}
-                {/* Animated underline on hover */}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-deep-navy transition-all duration-hover group-hover:w-full" />
-              </Link>
+                <Link
+                  href={link.href}
+                  className="text-body font-medium text-charcoal transition-colors duration-hover hover:text-deep-navy"
+                >
+                  {link.label}
+                </Link>
+                {/* Animated underline slide-in from left */}
+                <motion.span
+                  className="absolute -bottom-1 left-0 h-0.5 w-full bg-deep-navy"
+                  style={{ originX: 0 }}
+                  variants={{
+                    rest: { scaleX: 0 },
+                    hover: { scaleX: 1 },
+                  }}
+                  transition={{ duration: 0.2, ease: 'easeOut' }}
+                />
+              </motion.div>
             ))}
           </nav>
 

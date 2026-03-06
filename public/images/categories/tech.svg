@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <defs>
+    <linearGradient id="techGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="techShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Game Controller (3D Isometric) -->
+  <g transform="translate(60, 100)">
+    <!-- Controller body -->
+    <path d="M20 40 L80 20 L140 40 L140 70 C140 90 120 100 80 100 C40 100 20 90 20 70 Z" fill="#3B82F6" stroke="#2563EB" stroke-width="2"/>
+    <!-- Top face -->
+    <path d="M20 40 L80 20 L140 40 L80 55 Z" fill="#60A5FA"/>
+    <!-- Left grip -->
+    <ellipse cx="45" cy="55" rx="18" ry="12" fill="#2563EB"/>
+    <!-- Right grip -->
+    <ellipse cx="115" cy="55" rx="18" ry="12" fill="#2563EB"/>
+    <!-- D-pad -->
+    <rect x="38" y="42" width="4" height="16" rx="1" fill="#1E40AF"/>
+    <rect x="32" y="48" width="16" height="4" rx="1" fill="#1E40AF"/>
+    <!-- Buttons -->
+    <circle cx="112" cy="45" r="3" fill="#10B981"/>
+    <circle cx="120" cy="50" r="3" fill="#EF4444"/>
+    <circle cx="104" cy="50" r="3" fill="#FBBF24"/>
+    <circle cx="112" cy="55" r="3" fill="#3B82F6"/>
+    <!-- Shine -->
+    <path d="M20 40 L80 20 L140 40 L80 55 Z" fill="url(#techShine)"/>
+  </g>
+
+  <!-- Smartphone (3D Isometric) -->
+  <g transform="translate(200, 50)">
+    <!-- Phone body - right face -->
+    <path d="M80 30 L120 50 L120 130 L80 110 Z" fill="#1E40AF"/>
+    <!-- Phone body - top face -->
+    <path d="M20 10 L80 30 L120 50 L60 30 Z" fill="#93C5FD"/>
+    <!-- Phone body - front face -->
+    <path d="M20 10 L60 30 L60 110 L20 90 Z" fill="#3B82F6"/>
+    <!-- Screen -->
+    <path d="M26 20 L56 34 L56 100 L26 86 Z" fill="#0F172A"/>
+    <!-- Screen content glow -->
+    <path d="M30 30 L52 40 L52 60 L30 50 Z" fill="#06B6D4" opacity="0.6"/>
+    <path d="M30 55 L52 65 L52 75 L30 65 Z" fill="#10B981" opacity="0.4"/>
+    <!-- Camera dot -->
+    <circle cx="41" cy="17" r="2" fill="#0F172A"/>
+    <!-- Shine -->
+    <path d="M20 10 L60 30 L60 110 L20 90 Z" fill="url(#techShine)" opacity="0.3"/>
+  </g>
+
+  <!-- Drone (3D Isometric) -->
+  <g transform="translate(140, 160)">
+    <!-- Body -->
+    <ellipse cx="60" cy="40" rx="25" ry="12" fill="#06B6D4"/>
+    <ellipse cx="60" cy="37" rx="25" ry="12" fill="#22D3EE"/>
+    <!-- Camera -->
+    <circle cx="60" cy="50" r="6" fill="#1E40AF"/>
+    <circle cx="60" cy="50" r="3" fill="#0F172A"/>
+    <!-- Arms -->
+    <line x1="38" y1="35" x2="10" y2="20" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+    <line x1="82" y1="35" x2="110" y2="20" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+    <line x1="38" y1="42" x2="10" y2="57" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+    <line x1="82" y1="42" x2="110" y2="57" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+    <!-- Propellers -->
+    <ellipse cx="10" cy="20" rx="14" ry="5" fill="#10B981" opacity="0.5"/>
+    <ellipse cx="110" cy="20" rx="14" ry="5" fill="#10B981" opacity="0.5"/>
+    <ellipse cx="10" cy="57" rx="14" ry="5" fill="#10B981" opacity="0.5"/>
+    <ellipse cx="110" cy="57" rx="14" ry="5" fill="#10B981" opacity="0.5"/>
+    <!-- Propeller centers -->
+    <circle cx="10" cy="20" r="3" fill="#06B6D4"/>
+    <circle cx="110" cy="20" r="3" fill="#06B6D4"/>
+    <circle cx="10" cy="57" r="3" fill="#06B6D4"/>
+    <circle cx="110" cy="57" r="3" fill="#06B6D4"/>
+  </g>
+
+  <!-- Headphones (3D Isometric) -->
+  <g transform="translate(20, 20)">
+    <!-- Band -->
+    <path d="M15 50 Q15 15 40 15 Q65 15 65 50" stroke="#60A5FA" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Left ear cup -->
+    <rect x="5" y="45" width="20" height="28" rx="8" fill="#3B82F6"/>
+    <rect x="8" y="48" width="14" height="22" rx="6" fill="#2563EB"/>
+    <!-- Right ear cup -->
+    <rect x="55" y="45" width="20" height="28" rx="8" fill="#3B82F6"/>
+    <rect x="58" y="48" width="14" height="22" rx="6" fill="#2563EB"/>
+    <!-- Padding -->
+    <ellipse cx="15" cy="59" rx="5" ry="8" fill="#93C5FD" opacity="0.5"/>
+    <ellipse cx="65" cy="59" rx="5" ry="8" fill="#93C5FD" opacity="0.5"/>
+  </g>
+</svg>

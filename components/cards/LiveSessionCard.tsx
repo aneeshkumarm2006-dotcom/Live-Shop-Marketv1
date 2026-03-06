@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Badge from '@/components/ui/Badge';
+import { motion } from 'framer-motion';
 import type { Platform, SessionStatus } from '@/types/liveSession';
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -66,11 +67,12 @@ export default function LiveSessionCard({
     : null;
 
   return (
-    <div
+    <motion.div
+      whileHover={{ y: -4, scale: 1.02 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className={[
         'group flex flex-col overflow-hidden rounded-card bg-white shadow-card',
-        'transition-all duration-hover',
-        'hover:shadow-card-hover hover:-translate-y-1 hover:scale-[1.02]',
+        'transition-shadow duration-hover hover:shadow-card-hover',
         className,
       ]
         .filter(Boolean)
@@ -132,6 +134,6 @@ export default function LiveSessionCard({
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
+import { motion } from 'framer-motion';
 import type { Platform } from '@/types/liveSession';
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -69,11 +70,12 @@ export default function UpcomingSessionCard({
   }).format(date);
 
   return (
-    <div
+    <motion.div
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className={[
         'group grid grid-cols-1 items-center gap-3 rounded-card bg-white p-3u shadow-card',
-        'transition-all duration-hover',
-        'hover:shadow-card-hover hover:-translate-y-0.5',
+        'transition-shadow duration-hover hover:shadow-card-hover',
         // Desktop: row layout
         'sm:grid-cols-[1fr_auto_auto_auto] sm:gap-4u',
         className,
@@ -143,6 +145,6 @@ export default function UpcomingSessionCard({
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

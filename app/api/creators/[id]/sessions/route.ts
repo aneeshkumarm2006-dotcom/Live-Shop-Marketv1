@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dbConnect from '@/lib/db/mongoose';
 import LiveSession from '@/models/LiveSession';
 import Creator from '@/models/Creator';
+import { rateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limit';
 
 // ─── GET /api/creators/[id]/sessions — Get all sessions for a creator ──────
 
@@ -20,6 +21,9 @@ import Creator from '@/models/Creator';
  */
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const rateLimitResponse = rateLimit(request, RATE_LIMIT_PRESETS.read);
+    if (rateLimitResponse) return rateLimitResponse;
+
     await dbConnect();
 
     const { id } = await params;

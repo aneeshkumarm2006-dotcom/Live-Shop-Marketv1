@@ -17,3 +17,6 @@ export type { ModalProps, ModalSize } from './Modal';
 
 export { default as Spinner } from './Spinner';
 export type { SpinnerProps, SpinnerSize } from './Spinner';
+
+export { default as CategoryGradientBg } from './CategoryGradientBg';
+export type { CategoryGradientBgProps } from './CategoryGradientBg';

@@ -28,7 +28,7 @@ export default function Header() {
     { href: '/', label: 'Home' },
     { href: '/categories', label: 'Categories' },
     { href: '/how-it-works', label: 'How It Works' },
-    { href: '/brands/get-started', label: 'For Brands' },
+    { href: '/brands/get-started', label: 'Get Started' },
   ];
 
   const dashboardHref =

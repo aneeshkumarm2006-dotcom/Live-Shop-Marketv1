@@ -132,7 +132,7 @@ export default function HowItWorksPage() {
           </p>
         </div>
 
-        <div className="mt-12 space-y-8 lg:mt-16 lg:space-y-0">
+        <div className="mt-12 space-y-6 lg:mt-16 lg:space-y-8">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -145,9 +145,7 @@ export default function HowItWorksPage() {
                   />
                 )}
 
-                <div
-                  className={`flex flex-col items-start gap-4u rounded-card border-l-4 bg-white p-6 shadow-card transition-shadow duration-hover hover:shadow-card-hover lg:flex-row lg:items-center lg:gap-8u lg:border-l-0 lg:border-t-4 ${step.accent}`}
-                >
+                <div className="flex flex-col items-start gap-4u rounded-card border border-neutral-gray bg-white p-6 shadow-card transition-shadow duration-hover hover:shadow-card-hover lg:flex-row lg:items-center lg:gap-8u">
                   {/* Step number + icon */}
                   <div className="flex shrink-0 items-center gap-3u">
                     <div
@@ -228,15 +226,14 @@ export default function HowItWorksPage() {
           <div className="flex-1">
             <h2 className="text-banner-title text-white lg:text-page-title">Ready to Go Live?</h2>
             <p className="mt-2u max-w-lg text-lg leading-relaxed text-white/70 lg:text-xl">
-              Apply now to become a live shopping partner. Fill out the form and bring your brand to
-              our live shopping audience.
+              Create your account today and start reaching thousands of live shopping enthusiasts.
             </p>
           </div>
           <Link
-            href="/brands/get-started"
+            href="/signup"
             className="inline-flex shrink-0 items-center gap-2 rounded-button bg-neon-green px-8 py-3.5 text-button-text font-bold text-deep-navy shadow-lg transition-all duration-button hover:brightness-90 hover:shadow-xl"
           >
-            Apply Now
+            Sign Up Now
             <ArrowRight size={20} />
           </Link>
         </div>

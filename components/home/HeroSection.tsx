@@ -23,9 +23,15 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden">
       {/* ── Background image ── */}
-      <Image src="/images/hero/hero.png" alt="" fill priority className="object-cover" />
+      <Image
+        src="/images/hero/hero.png"
+        alt=""
+        fill
+        priority
+        className="object-cover brightness-105 saturate-110"
+      />
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/5" />
 
       {/* ── Content ── */}
       <div className="relative z-10 mx-auto flex max-w-container flex-col items-center px-3u py-16 text-center sm:py-20 lg:py-28">

@@ -35,6 +35,8 @@ export interface CategoryCardProps {
   description?: string;
   /** Path to a 3D illustration image (e.g. `/images/categories/tech.svg`) */
   illustrationSrc?: string;
+  /** Path to a full-width banner image used as card background */
+  bannerSrc?: string;
   /** Number of live/scheduled sessions to display as a count badge */
   sessionCount?: number;
   /** Override the default link destination */
@@ -47,6 +49,7 @@ export default function CategoryCard({
   slug,
   description,
   illustrationSrc,
+  bannerSrc,
   sessionCount,
   href,
   className = '',
@@ -68,11 +71,23 @@ export default function CategoryCard({
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon-green',
         ].join(' ')}
       >
-        {/* ── Gradient background ── */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} aria-hidden />
+        {/* ── Banner image or gradient background ── */}
+        {bannerSrc ? (
+          <Image
+            src={bannerSrc}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
+            quality={90}
+            aria-hidden
+          />
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} aria-hidden />
+        )}
 
-        {/* ── 3D illustration (positioned right/bottom) ── */}
-        {illustrationSrc && (
+        {/* ── 3D illustration (positioned right/bottom, hidden when banner is used) ── */}
+        {!bannerSrc && illustrationSrc && (
           <div className="absolute right-3 bottom-3 h-3/5 w-3/5 opacity-80 transition-transform duration-hover group-hover:scale-105">
             <Image
               src={illustrationSrc}

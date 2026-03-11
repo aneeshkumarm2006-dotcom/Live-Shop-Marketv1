@@ -15,6 +15,15 @@ export const CATEGORY_IMAGES: Record<string, string> = {
   fashion: '/images/categories/fashion.svg',
 } as const;
 
+/* ── Category Banner Images (full-width banners for cards & hero) ── */
+export const CATEGORY_BANNERS: Record<string, string> = {
+  'tech-gadgets': '/og-category-tech.png',
+  'beauty-personal-care': '/og-category-beauty.png',
+  wellness: '/og-category-wellness.png',
+  'sports-fitness': '/og-category-sports.png',
+  fashion: '/og-category-fashion.png',
+} as const;
+
 /* ── Platform Icons (DESIGN.md §6.3) ── */
 export const PLATFORM_ICONS: Record<string, string> = {
   youtube: '/icons/youtube.svg',
@@ -65,6 +74,7 @@ export const CATEGORY_GRADIENT_CLASSES: Record<string, string> = {
 /* ── Aggregate export ── */
 export const ASSETS = {
   categories: CATEGORY_IMAGES,
+  categoryBanners: CATEGORY_BANNERS,
   platforms: PLATFORM_ICONS,
   logo: LOGO,
   appIcons: APP_ICONS,

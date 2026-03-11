@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
+import { CATEGORY_BANNERS } from '@/lib/assets';
 
 /* ─────────────────────────────────────────────────────────────────────
    CategoryHeroBanner — DESIGN.md §7.3 / TODO §8.3
@@ -44,6 +46,18 @@ const DEFAULT_VISUALS: CategoryVisuals = {
   illustrations: ['🛍️', '📦', '🏷️'],
 };
 
+// ─── Accent box color keyed by slug (darker shade of banner) ────────
+
+const CATEGORY_BOX_COLORS: Record<string, string> = {
+  'tech-gadgets': 'bg-[#2d6be0]',
+  'beauty-personal-care': 'bg-[#e0288a]',
+  wellness: 'bg-[#17b09a]',
+  'sports-fitness': 'bg-[#e85f28]',
+  fashion: 'bg-[#7c44e0]',
+};
+
+const DEFAULT_BOX_COLOR = 'bg-black/40';
+
 // ─── Props ──────────────────────────────────────────────────────────
 
 export interface CategoryHeroBannerProps {
@@ -68,51 +82,54 @@ export default function CategoryHeroBanner({
   stats,
 }: CategoryHeroBannerProps) {
   const visuals = CATEGORY_VISUALS[slug] ?? DEFAULT_VISUALS;
+  const bannerSrc = CATEGORY_BANNERS[slug];
+  const boxColor = CATEGORY_BOX_COLORS[slug] ?? DEFAULT_BOX_COLOR;
 
   return (
     <section
-      className={`relative w-full overflow-hidden bg-gradient-to-br ${visuals.gradient}`}
+      className={`relative w-full overflow-hidden ${bannerSrc ? '' : `bg-gradient-to-br ${visuals.gradient}`}`}
       style={{ minHeight: 240 }}
     >
-      {/* ── Decorative floating illustrations ── */}
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-between px-6u opacity-30 select-none"
-        aria-hidden
-      >
-        {visuals.illustrations.map((icon, i) => (
-          <span
-            key={i}
-            className="text-[64px] drop-shadow-lg"
-            style={{
-              transform: `translateY(${i % 2 === 0 ? -12 : 12}px) rotate(${(i - 1) * 15}deg)`,
-            }}
-          >
-            {icon}
-          </span>
-        ))}
-      </div>
+      {/* ── Banner image background ── */}
+      {bannerSrc && (
+        <Image
+          src={bannerSrc}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+          aria-hidden
+        />
+      )}
+
+      {/* ── Decorative floating illustrations (hidden when banner is used) ── */}
+      {!bannerSrc && (
+        <div
+          className="pointer-events-none absolute inset-0 flex items-center justify-between px-6u opacity-30 select-none"
+          aria-hidden
+        >
+          {visuals.illustrations.map((icon, i) => (
+            <span
+              key={i}
+              className="text-[64px] drop-shadow-lg"
+              style={{
+                transform: `translateY(${i % 2 === 0 ? -12 : 12}px) rotate(${(i - 1) * 15}deg)`,
+              }}
+            >
+              {icon}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* ── Content ── */}
-      <div className="relative z-10 mx-auto flex max-w-container flex-col items-center justify-center px-3u py-8u text-center">
-        <h1 className="text-banner-title text-white drop-shadow-md md:text-page-title">{name}</h1>
-
-        {description && <p className="mt-2u max-w-xl text-body text-white/80">{description}</p>}
-
-        {/* ── Stat strip ── */}
-        {stats && (
-          <div className="mt-4u flex items-center gap-6u text-small font-semibold text-white/90">
-            {typeof stats.liveSessionCount === 'number' && stats.liveSessionCount > 0 && (
-              <span className="flex items-center gap-1.5">
-                <span className="inline-block h-2 w-2 rounded-full bg-white animate-live-pulse" />
-                {stats.liveSessionCount} Live Now
-              </span>
-            )}
-            {typeof stats.scheduledSessionCount === 'number' && (
-              <span>{stats.scheduledSessionCount} Upcoming</span>
-            )}
-            {typeof stats.creatorCount === 'number' && <span>{stats.creatorCount} Brands</span>}
-          </div>
-        )}
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <h1
+          className={`${boxColor} px-6 py-3 text-banner-title text-white md:text-page-title shadow-[0_4px_16px_rgba(0,0,0,0.35)]`}
+        >
+          {name}
+        </h1>
       </div>
     </section>
   );

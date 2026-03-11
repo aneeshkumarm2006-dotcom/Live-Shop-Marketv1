@@ -4,6 +4,7 @@ import { ChevronRight } from 'lucide-react';
 import dbConnect from '@/lib/db/mongoose';
 import Category from '@/models/Category';
 import CategoryCard from '@/components/cards/CategoryCard';
+import { CATEGORY_BANNERS } from '@/lib/assets';
 
 /* ─────────────────────────────────────────────────────────────────────
    All Categories Page — DESIGN.md §7.2 / TODO §8.2
@@ -98,6 +99,7 @@ export default async function AllCategoriesPage() {
               slug={cat.slug}
               description={cat.description}
               sessionCount={cat.sessionCount}
+              bannerSrc={CATEGORY_BANNERS[cat.slug]}
             />
           ))}
 

@@ -1,14 +1,9 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
-
-/* ─────────────────────────────────────────────────────────────────────
-   HeroSection — DESIGN.md §7.1 / §5.6
-   Vibrant blue gradient background with floating video-frame elements,
-   large "LiveShopMarket" title, tagline, and centered search bar.
-   ───────────────────────────────────────────────────────────────────── */
 
 export default function HeroSection() {
   const router = useRouter();
@@ -26,20 +21,11 @@ export default function HeroSection() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#2563EB] via-[#1A1A6E] to-[#06B6D4]">
-      {/* ── Decorative floating elements ── */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Video frame 1 */}
-        <div className="absolute -top-8 -left-12 h-40 w-56 rotate-[-12deg] rounded-2xl border-4 border-white/10 bg-white/5 backdrop-blur-sm" />
-        {/* Video frame 2 */}
-        <div className="absolute top-12 right-[8%] h-32 w-48 rotate-[8deg] rounded-2xl border-4 border-white/10 bg-white/5 backdrop-blur-sm" />
-        {/* Video frame 3 */}
-        <div className="absolute bottom-6 left-[15%] h-28 w-44 rotate-[-6deg] rounded-2xl border-4 border-white/10 bg-white/5 backdrop-blur-sm" />
-        {/* Floating circles */}
-        <div className="absolute top-1/4 right-[20%] h-20 w-20 rounded-full bg-neon-green/10 blur-xl" />
-        <div className="absolute bottom-1/3 left-[10%] h-16 w-16 rounded-full bg-[#FF6B3D]/15 blur-xl" />
-        <div className="absolute top-[60%] right-[40%] h-24 w-24 rounded-full bg-[#D4FF00]/8 blur-2xl" />
-      </div>
+    <section className="relative overflow-hidden">
+      {/* ── Background image ── */}
+      <Image src="/images/hero/hero.png" alt="" fill priority className="object-cover" />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* ── Content ── */}
       <div className="relative z-10 mx-auto flex max-w-container flex-col items-center px-3u py-16 text-center sm:py-20 lg:py-28">
@@ -50,7 +36,7 @@ export default function HeroSection() {
         </span>
 
         {/* Title */}
-        <h1 className="text-hero-heading text-white drop-shadow-lg sm:text-[56px] md:text-[64px]">
+        <h1 className="text-[32px] leading-tight font-bold tracking-tight text-white drop-shadow-lg xs:text-[38px] sm:text-[48px] md:text-[56px] lg:text-[64px]">
           LiveShopMarket
         </h1>
 
